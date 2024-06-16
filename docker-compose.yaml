@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+#  ServiceDB:
+#    container_name: universalDB
+#    hostname: universalDB
+#    image: postgres
+#    networks:
+#      - uni-request-network
+#    ports:
+#      - "5440:5432"
+#    env_file:
+#      - .env
+
+  universal-request-service:
+    restart: on-failure
+    container_name: universalRequestService
+    hostname: uni-request-service
+    build:
+      context: .
+    image: astu/universal-request:v1
+    ports:
+      - "8092:80"
+    networks:
+      - services-network
+#      - uni-request-network
+    env_file:
+      - .env
+networks:
+  services-network:
+    external:
+      name: private-astu-services-network
+#  uni-request-network:
+#    driver: bridge

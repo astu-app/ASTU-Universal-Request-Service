@@ -1,0 +1,109 @@
+{
+  "openapi" : "3.0.1",
+  "info" : {
+    "title" : "Universal Request API",
+    "description" : "Апи для работы с шаблонами документов и получением сгенерированного документа",
+    "version" : "latest"
+  },
+  "externalDocs" : {
+    "url" : "/"
+  },
+  "servers" : [ {
+    "url" : "http://localhost:8080",
+    "description" : "Development Server"
+  } ],
+  "tags" : [ ],
+  "paths" : {
+    "/api/templates/upload" : {
+      "post" : {
+        "tags" : [ ],
+        "summary" : "Загрузка шаблонов",
+        "parameters" : [ ],
+        "requestBody" : {
+          "content" : {
+            "multipart/form-data" : {
+              "schema" : {
+                "type" : "object",
+                "properties" : {
+                  "file" : {
+                    "type" : "string",
+                    "format" : "binary"
+                  },
+                  "info" : {
+                    "$ref" : "#/components/schemas/TemplateInfo"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses" : { },
+        "deprecated" : false
+      }
+    },
+    "/api/templates" : {
+      "get" : {
+        "tags" : [ ],
+        "summary" : "Получение списка шаблонов",
+        "parameters" : [ ],
+        "responses" : { },
+        "deprecated" : false
+      }
+    },
+    "/api/templates/{id}" : {
+      "post" : {
+        "tags" : [ ],
+        "summary" : "Заполнение шаблона",
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "type" : "array",
+                "items" : {
+                  "$ref" : "#/components/schemas/TemplateFieldDTO"
+                }
+              }
+            }
+          }
+        },
+        "responses" : { },
+        "deprecated" : false
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "TemplateInfo" : {
+        "type" : "object",
+        "properties" : {
+          "description" : {
+            "type" : "string"
+          },
+          "name" : {
+            "type" : "string"
+          }
+        }
+      },
+      "TemplateFieldDTO" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string"
+          },
+          "value" : {
+            "type" : "string"
+          }
+        }
+      }
+    },
+    "examples" : { }
+  }
+}
