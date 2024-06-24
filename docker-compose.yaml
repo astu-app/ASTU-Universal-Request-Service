@@ -17,7 +17,7 @@ services:
     hostname: uni-request-service
     build:
       context: .
-    image: astu/universal-request:v1
+    image: traumtoten/universal-request:v1
     ports:
       - "8092:80"
     networks:
